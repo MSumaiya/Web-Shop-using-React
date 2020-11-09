@@ -83,7 +83,7 @@ let movieHtml = movies.map((movie:IMovie)=>{
 return (
     <>
         <h1>Movies</h1>
-        <button>Go to cart({cart.length})</button>
+        
         
         <Grid columns={3}>
             {movieHtml}

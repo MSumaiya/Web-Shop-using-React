@@ -13,15 +13,20 @@ interface IMovie{
 }
 interface ICartProps{
   message: ICartItem[];
-}
+} 
 
 function deleteCart(){
-
+  
 }
 
 
 export default function Cart(props:ICartProps) {
+
+  console.log(props);
   
+
+  let totalPrice = props.message.reduce((a, c)=> a + ((c.amount) * c.product.price) , 0)
+
   let movieHtml = props.message.map((movie:ICartItem)=>{
     return(
       <Grid.Column key= {movie.product.id}>
@@ -35,6 +40,7 @@ export default function Cart(props:ICartProps) {
                 </Card.Description>
               </Card.Content>
           </Card>
+    <div>Number of product: {movie.amount}</div>
           <button type='button' onClick={deleteCart}>Delete</button>
           
       </Grid.Column>
@@ -47,10 +53,9 @@ export default function Cart(props:ICartProps) {
         
         {/* <p>{JSON.stringify(props.message)}</p> */}
         <Grid columns={3}>
-            {movieHtml}
-            
+            {movieHtml}            
         </Grid>
-        <p>Total Price: {} </p>
+        <p>Total Price: {totalPrice} </p>
     </>
 
     

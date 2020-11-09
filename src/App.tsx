@@ -11,22 +11,21 @@ export interface ICartItem{
   product: IMovie;
   amount: number;
 }
-
-
 function App() {
-  const defaultValue:ICartItem[]=[];
- 
+
+  const defaultValue:ICartItem[]=[]; 
   const [cart, setCart] = useState(defaultValue);
 
   const addToCart =(movie:IMovie):void=>{
     let found = false;
-    for(let i=0; i<cart.length; i++){
-      if(cart[i].product.id===movie.id){
-      cart[i].amount++; 
+    let tempCart = cart;
+    for(let i=0; i<tempCart.length; i++){
+      if(tempCart[i].product.id===movie.id){
+        tempCart[i].amount++; 
       found = true;
+      }
     }
-  }
-
+  
   if(found===false){
     let newCartItem:ICartItem = {
       product: movie,
@@ -34,21 +33,11 @@ function App() {
     }
     setCart([...cart, newCartItem]);
   } else {
-      let tempCart = cart; 
-      for(let i=0; i<cart.length; i++){
-        if(tempCart[i].product.id===movie.id){
-          tempCart[i].amount++; 
-      }
       setCart(tempCart);
-    }
-    console.log('tempCart: ', tempCart.length);
+    /* console.log('tempCart: ', tempCart.length); */
   }
   console.log('Cart: ', cart.length);
-  
   }
-
-
-
 
 
   return (
