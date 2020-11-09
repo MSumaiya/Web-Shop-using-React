@@ -7,15 +7,48 @@ import Admin from './components/Admin/Admin';
 import Cart from './components/Cart/Cart';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
+export interface ICartItem{
+  product: IMovie;
+  amount: number;
+}
+
+
 function App() {
-  /* const defaultValue:IMovie[]=[];
-  const [movies, setMovies]=useState(defaultValue);
+  const defaultValue:ICartItem[]=[];
+ 
   const [cart, setCart] = useState(defaultValue);
 
+  const addToCart =(movie:IMovie):void=>{
+    let found = false;
+    for(let i=0; i<cart.length; i++){
+      if(cart[i].product.id===movie.id){
+      cart[i].amount++; 
+      found = true;
+    }
+  }
 
-  const addToCart =(movie:IMovie)=>{
-    setCart([...cart, movie]);
-} */
+  if(found===false){
+    let newCartItem:ICartItem = {
+      product: movie,
+      amount: 1
+    }
+    setCart([...cart, newCartItem]);
+  } else {
+      let tempCart = cart; 
+      for(let i=0; i<cart.length; i++){
+        if(tempCart[i].product.id===movie.id){
+          tempCart[i].amount++; 
+      }
+      setCart(tempCart);
+    }
+    console.log('tempCart: ', tempCart.length);
+  }
+  console.log('Cart: ', cart.length);
+  
+  }
+
+
+
 
 
   return (
@@ -28,10 +61,10 @@ function App() {
       <Admin></Admin>
       </Route>
       <Route path='/cart'>
-      <Cart ></Cart>
+      <Cart message={cart}></Cart>
       </Route>
       <Route path='/' exact={true}>
-        <Home ></Home>
+        <Home updateMovie={addToCart}></Home>
         </Route>
           </Switch>
     </Router>
