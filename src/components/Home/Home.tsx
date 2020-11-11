@@ -26,39 +26,12 @@ export default function Home(props:IDataprops) {
             })
     }, []);
     
-    /* const addToCart =(movie:IMovie)=>{
-        setCart([...cart, movie]);
-    } */
+  
     
 function clickHandel(movie:IMovie){
     props.updateMovie(movie);
 };
     
-/* return (
-    <>
-        <h1>Movies</h1>
-        <button>Go to cart({cart.length})</button>
-        <Grid columns={3}>
-        {movies.map((movie:IMovie)=>{
-            return(
-                <Grid.Column key={movie.id}>
-                    <Card className="cardHeight">
-                        <Card.Content>
-                                <Card.Header>{movie.name}</Card.Header>
-                            
-                                <Card.Description>
-                                <img className="image" src={movie.imageUrl} alt="Movie image"/>
-                                <p>Price: {movie.price}</p>
-                                <button onClick={()=>addToCart(movie)}>Add to Cart</button>
-                                </Card.Description>
-                        </Card.Content>
-                    </Card>
-                </Grid.Column>  
-            )
-    })}
-        </Grid>
-    </>
-); */
 
 
 let movieHtml = movies.map((movie:IMovie)=>{

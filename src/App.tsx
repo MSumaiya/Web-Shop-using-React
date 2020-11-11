@@ -22,7 +22,7 @@ function App() {
     for(let i=0; i<tempCart.length; i++){
       if(tempCart[i].product.id===movie.id){
         tempCart[i].amount++; 
-      found = true;
+        found = true;
       }
     }
   
@@ -38,7 +38,28 @@ function App() {
   }
   console.log('Cart: ', cart.length);
   }
+  /* Remove from Cart */
+  function removeFromCart(movie:IMovie){
+    let tempCart = cart;
+    let found = false;
+    tempCart.forEach((item)=>{
+      if(item.product.id === movie.id && item.amount > 1){
+        item.amount--;
+        found = true;
+      }
+      setCart(tempCart);
+    });
+    if(found===false){
+      const newCartItem =tempCart.slice().filter((x) => x.product.id !== movie.id);
+      setCart(newCartItem);
+    }
+  };
 
+/* Clearing the cart after order */
+
+const clearItemForm = ((movie:IMovie)=>{
+  setCart([]);
+});
 
   return (
     <div className="App">
@@ -50,7 +71,13 @@ function App() {
       <Admin></Admin>
       </Route>
       <Route path='/cart'>
-      <Cart message={cart}></Cart>
+      <Cart 
+        message={cart}
+        removeItem={removeFromCart}
+        clearItem={clearItemForm}
+      />
+
+      
       </Route>
       <Route path='/' exact={true}>
         <Home updateMovie={addToCart}></Home>
