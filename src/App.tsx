@@ -57,7 +57,7 @@ function App() {
 
 /* Clearing the cart after order */
 
-const clearItemForm = ((movie:IMovie)=>{
+const clearItemForm = ((movie:IMovie[])=>{
   setCart([]);
 });
 

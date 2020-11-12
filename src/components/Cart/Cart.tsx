@@ -14,7 +14,7 @@ interface IMovie{
 interface ICartProps{
   message: ICartItem[];
   removeItem(movie:IMovie):void;
-  clearItem(movie:IMovie):void;
+  clearItem(movie:IMovie[]):void;
 } 
 
 
@@ -24,6 +24,11 @@ export default function Cart(props:ICartProps) {
 
   console.log(props);
   const [customerEmail, setCustomerEmail] = useState('');
+
+  const tempMessage = props.message;
+  const clearMovie = (tempMessage:IMovie[]) =>{
+    props.clearItem(tempMessage);
+  }
 
   function updateCustomerEmail(e:ChangeEvent<HTMLInputElement>){
     setCustomerEmail(e.target.value);
@@ -76,7 +81,7 @@ export default function Cart(props:ICartProps) {
                 </Card.Description>
               </Card.Content>
           </Card>
-    <div>Number of product: {movie.amount}</div>
+          <div>Number of product: {movie.amount}</div>
           <button type='button' onClick={()=>props.removeItem(movie.product)}>Delete</button>
           
       </Grid.Column>

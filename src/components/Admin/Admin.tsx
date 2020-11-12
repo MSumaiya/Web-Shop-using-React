@@ -21,13 +21,24 @@ export default function Admin() {
     })
     },[]);
 
+
+    async function deleteOrder(id: number) {
+ 
+        axios.delete(`https://medieinstitutet-wie-products.azurewebsites.net/api/orders/${id}`)
+            .then(result => {
+            console.log(result);
+            const filteredOrders = orders.filter(item => item.id !== id);
+            setOrders(filteredOrders);
+        });
+    };
+
    
 
    let orderHtml = orders.map((order:IOrder)=>{
         return(
             <div>
-                <p>Order id is: {order.id} and created by: {order.createdBy}</p>
-                
+                <p key={order.id}>Order id is: {order.id} and created by: {order.createdBy}</p>
+                <button type='button' onClick={()=>deleteOrder(order.id)}>Delete Order</button>
             </div>
         );
    });
