@@ -29,7 +29,7 @@ export default function Admin() {
             console.log(result);
             const filteredOrders = orders.filter(item => item.id !== id);
             setOrders(filteredOrders);
-        });
+        }); 
     };
 
    
