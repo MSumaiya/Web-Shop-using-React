@@ -2,8 +2,7 @@ import React,{ChangeEvent, useState} from 'react';
 import { Card, Grid, Item} from 'semantic-ui-react';
 import {ICartItem} from '../../App';
 import Axios from 'axios';
-
-
+ 
 interface IMovie{
   id:number,
   name:string,
@@ -11,32 +10,32 @@ interface IMovie{
   imageUrl:string,
   price: number
 }
+ 
 interface ICartProps{
   message: ICartItem[];
   removeItem(movie:IMovie):void;
-  clearItem(movie:IMovie[]):void;
+  clearItem():void;
 } 
 
 
 
-
+ 
 export default function Cart(props:ICartProps) {
-
+ 
   console.log(props);
   const [customerEmail, setCustomerEmail] = useState('');
-
+ 
   const tempMessage = props.message;
-  const clearMovie = (tempMessage:IMovie[]) =>{
-    props.clearItem(tempMessage);
+  const clearMovie = () =>{
+    props.clearItem();
   }
-
+ 
   function updateCustomerEmail(e:ChangeEvent<HTMLInputElement>){
     setCustomerEmail(e.target.value);
   }
-
+ 
   let totalPrice = props.message.reduce((a, c)=> a + ((c.amount) * c.product.price) , 0)
-
-
+ 
   let orderMovies = props.message.map((movie: ICartItem) => {
     return(
       {
@@ -48,7 +47,7 @@ export default function Cart(props:ICartProps) {
       }
     ); 
   });
-
+ 
   async function checkOut() {
  
     let params = {
@@ -64,10 +63,9 @@ export default function Cart(props:ICartProps) {
     let res = await Axios.post('https://medieinstitutet-wie-products.azurewebsites.net/api/orders',
     params)
     console.log(res.data)
-    
+    clearMovie();
   };
-
-
+ 
   let movieHtml = props.message.map((movie:ICartItem)=>{
     return(
       <Grid.Column key= {movie.product.id}>
@@ -87,7 +85,7 @@ export default function Cart(props:ICartProps) {
       </Grid.Column>
       
   )})
-
+ 
  
   return (
     <>
@@ -100,7 +98,7 @@ export default function Cart(props:ICartProps) {
         <input type='text' id='email' onChange={updateCustomerEmail}></input>
         <button type='button' onClick={()=>checkOut()}>Proceed</button>
     </>
-
+ 
     
   );
 }

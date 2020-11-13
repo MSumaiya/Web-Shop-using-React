@@ -47,17 +47,20 @@ function App() {
         item.amount--;
         found = true;
       }
-      setCart(tempCart);
+     
     });
     if(found===false){
       const newCartItem =tempCart.slice().filter((x) => x.product.id !== movie.id);
       setCart(newCartItem);
+    }else {
+       setCart([...tempCart]);
     }
+    
   };
 
 /* Clearing the cart after order */
 
-const clearItemForm = ((movie:IMovie[])=>{
+const clearItemForm = (()=>{
   setCart([]);
 });
 
